@@ -1,25 +1,43 @@
 import React from 'react';
-import { useThemeStore } from './app/store';
+import { useDataStore, useThemeStore } from './app/store';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
-import { Header } from './components';
+import { Header, MainContent, Sidebar } from './components';
 
 const App = () => {
   const theme = useThemeStore(state => state.theme);
+  const { isSidebarOpen } = useDataStore();
 
   return (
     <ThemeProvider theme={theme}>
-      <Container>
-        <Header />
-      </Container>
+      <Wrapper>
+        {isSidebarOpen && <Sidebar />}
+        <Container isOpen={isSidebarOpen}>
+          <Header />
+          <MainContent />
+        </Container>
+      </Wrapper>
     </ThemeProvider>
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{
+  isOpen: boolean;
+}>`
   width: 100vw;
   height: 100vh;
   background-color: ${({ theme }) => theme.body};
+
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+
+  left: ${({ isOpen }) => (isOpen ? '250px' : '0')};
+`;
+
+const Wrapper = styled.div`
+  display: flex;
 `;
 
 export default App;

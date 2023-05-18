@@ -26,3 +26,12 @@ export const RobotoLight = styled.h2`
   font-size: 13px;
   line-height: 15px;
 `;
+
+export const CommissionerBold = styled.h2`
+  font-family: 'Commissioner';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 5px;
+`;

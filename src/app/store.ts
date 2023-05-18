@@ -10,6 +10,9 @@ interface Store {
 
 interface DataStore {
   data: dataTypes[];
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
+  closeSidebar: () => void;
 }
 
 export const useThemeStore = create<Store>(set => ({
@@ -22,4 +25,7 @@ export const useThemeStore = create<Store>(set => ({
 
 export const useDataStore = create<DataStore>(set => ({
   data: data,
+  isSidebarOpen: false,
+  toggleSidebar: () => set(state => ({ isSidebarOpen: !state.isSidebarOpen })),
+  closeSidebar: () => set({ isSidebarOpen: false }),
 }));

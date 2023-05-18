@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useDataStore } from '../app/store';
 import IconMenu from '../svgs/IconMenu';
 import { RobotoRegular } from '../styles/typography';
+import IconClose from '../svgs/IconClose';
 import { IconDocument, IconDelete, IconSave } from '../assets';
 
 const Header = () => {
-  const { data } = useDataStore();
+  const { data, isSidebarOpen, toggleSidebar, closeSidebar } = useDataStore();
+
+  // set useref to close sidebar when clicking outside of it
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Container>
-      <MenuWrapper>
-        <IconMenu />
+    <Container ref={sidebarRef}>
+      <MenuWrapper onClick={toggleSidebar}>
+        {isSidebarOpen ? <IconClose /> : <IconMenu />}
       </MenuWrapper>
-
       <Wrapper>
         <TitleWrapper>
           <Icon src={IconDocument} alt='icon' />
@@ -35,6 +38,7 @@ const Container = styled.div`
   width: 100%;
   height: 56px;
   background: #2b2d31;
+  flex-grow: 0;
 
   display: flex;
   align-items: center;
@@ -85,5 +89,7 @@ const SaveWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 `;
 export default Header;
