@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-interface IconMenuProps {}
+interface IconCloseProps {}
 
-const IconMenu: FC<IconMenuProps> = ({}) => {
+const IconClose: FC<IconCloseProps> = ({}) => {
   return (
     <Svg width='24' height='24' xmlns='http://www.w3.org/2000/svg'>
       <g fill='#FFF' fillRule='evenodd'>
@@ -16,4 +16,4 @@ const IconMenu: FC<IconMenuProps> = ({}) => {
 
 const Svg = styled.svg``;
 
-export default IconMenu;
+export default IconClose;
