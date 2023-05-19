@@ -3,14 +3,17 @@ import { dataTypes } from '../types';
 import styled from 'styled-components';
 import { IconDocument } from '../assets';
 import { RobotoLight, RobotoRegular } from '../styles/typography';
+import { useDataStore } from '../app/store';
 
 interface ItemListProps {
   item: dataTypes;
 }
 
 const ItemList: FC<ItemListProps> = ({ item }) => {
+  const { setSelectedData } = useDataStore();
+
   return (
-    <Container>
+    <Container onClick={() => setSelectedData(item)}>
       <IconImg src={IconDocument} alt='icon' />
       <ItemWrapper>
         <LightText>{item?.createdAt}</LightText>

@@ -7,7 +7,14 @@ import IconClose from '../svgs/IconClose';
 import { IconDocument, IconDelete, IconSave } from '../assets';
 
 const Header = () => {
-  const { data, isSidebarOpen, toggleSidebar, closeSidebar } = useDataStore();
+  const {
+    data,
+    isSidebarOpen,
+    toggleSidebar,
+    closeSidebar,
+    selectedData,
+    removeData,
+  } = useDataStore();
 
   // set useref to close sidebar when clicking outside of it
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -20,11 +27,15 @@ const Header = () => {
       <Wrapper>
         <TitleWrapper>
           <Icon src={IconDocument} alt='icon' />
-          <Title>welcome.md</Title>
+          <Title>{selectedData?.name || 'Empty'}</Title>
         </TitleWrapper>
 
         <Icons>
-          <Icon src={IconDelete} alt='icon' />
+          <Icon
+            src={IconDelete}
+            alt='icon'
+            onClick={() => removeData(selectedData?.name)}
+          />
           <SaveWrapper>
             <Icon src={IconSave} alt='icon' />
           </SaveWrapper>
