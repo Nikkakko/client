@@ -35,9 +35,8 @@ const Sidebar = () => {
 
 const Container = styled.div`
   width: 250px;
-  height: 100vh;
-  background: #1d1f22;
 
+  background: #1d1f22;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

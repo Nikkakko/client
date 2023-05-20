@@ -4,7 +4,7 @@ import { useDataStore } from '../app/store';
 
 const Markdown = () => {
   const { selectedData } = useDataStore();
-  console.log(selectedData);
+
   return (
     <Container>
       {!selectedData.content && (
@@ -12,12 +12,49 @@ const Markdown = () => {
       )}
 
       {selectedData.content && (
-        <div dangerouslySetInnerHTML={{ __html: selectedData.content }} />
+        <ContentWrapper>
+          <TextArea
+            value={selectedData?.content}
+            onChange={() => console.log('changed')}
+          />
+        </ContentWrapper>
       )}
     </Container>
   );
 };
 
 const Container = styled.div``;
+
+const ContentWrapper = styled.div`
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 16px;
+
+  color: #c1c4cb;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 100vh;
+  min-height: 100%;
+  background: #151619;
+  border: none;
+  resize: none;
+  outline: none;
+
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  /* or 171% */
+
+  /* 400 */
+
+  color: #c1c4cb;
+`;
 
 export default Markdown;

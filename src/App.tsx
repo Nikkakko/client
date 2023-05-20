@@ -26,18 +26,23 @@ const Container = styled.div<{
 }>`
   width: 100vw;
   height: 100vh;
-  background-color: ${({ theme }) => theme.body};
 
   display: flex;
   flex-direction: column;
 
   position: absolute;
-
   left: ${({ isOpen }) => (isOpen ? '250px' : '0')};
+  transition: all 0.3s ease-in-out;
 `;
 
 const Wrapper = styled.div`
   display: flex;
+  background-color: ${({ theme }) => theme.body};
+
+  position: relative;
+  height: 100vh;
+
+  overflow: hidden;
 `;
 
 export default App;

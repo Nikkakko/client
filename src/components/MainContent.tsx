@@ -9,7 +9,7 @@ const MainContent = () => {
   return (
     <Container>
       <SelectOption selected={selected} setSelected={setSelected} />
-      {!selected ? <Markdown /> : <Preview />}
+      {/* {!selected ? <Markdown /> : <Preview />} */}
     </Container>
   );
 };
