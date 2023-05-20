@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDataStore } from '../app/store';
 
 const Markdown = () => {
-  const { selectedData } = useDataStore();
+  const { selectedData, onContentChange } = useDataStore();
 
   return (
     <Container>
@@ -15,7 +15,7 @@ const Markdown = () => {
         <ContentWrapper>
           <TextArea
             value={selectedData?.content}
-            onChange={() => console.log('changed')}
+            onChange={e => onContentChange(selectedData.name, e.target.value)}
           />
         </ContentWrapper>
       )}
@@ -31,7 +31,6 @@ const ContentWrapper = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  padding: 16px;
 
   color: #c1c4cb;
 `;
@@ -44,6 +43,11 @@ const TextArea = styled.textarea`
   border: none;
   resize: none;
   outline: none;
+
+  // hide scrollbar for chrome, safari and opera
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
   font-family: 'Roboto Mono';
   font-style: normal;

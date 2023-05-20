@@ -18,6 +18,7 @@ interface DataStore {
   closeSidebar: () => void;
   setSelectedData: (item: dataTypes) => void;
   removeData: (name: string) => void;
+  onContentChange: (name: string, content: string) => void;
 }
 
 export const useThemeStore = create<Store>(set => ({
@@ -49,4 +50,13 @@ export const useDataStore = create<DataStore>(set => ({
       data: state.data.filter(item => item.name !== name),
       selectedData: state.data.filter(item => item.name !== name)[0],
     })),
+
+  onContentChange: (name: string, content: string) => {
+    set(state => ({
+      data: state.data.map(item =>
+        item.name === name ? { ...item, content: content } : item
+      ),
+      selectedData: { ...state.selectedData, content: content },
+    }));
+  },
 }));

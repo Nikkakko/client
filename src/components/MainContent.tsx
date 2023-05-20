@@ -9,14 +9,19 @@ const MainContent = () => {
   return (
     <Container>
       <SelectOption selected={selected} setSelected={setSelected} />
-      {/* {!selected ? <Markdown /> : <Preview />} */}
+      <Wrapper>{!selected ? <Markdown /> : <Preview />}</Wrapper>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  /* border: 1px solid red; */
+`;
+
+const Wrapper = styled.div`
+  overflow-y: scroll;
+  padding: 58px 16px;
+  height: calc(100vh - 54px);
 `;
 
 export default MainContent;

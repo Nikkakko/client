@@ -10,7 +10,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Wrapper>
+      <Wrapper isOpen={isSidebarOpen}>
         {isSidebarOpen && <Sidebar />}
         <Container isOpen={isSidebarOpen}>
           <Header />
@@ -35,12 +35,17 @@ const Container = styled.div<{
   transition: all 0.3s ease-in-out;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{
+  isOpen: boolean;
+}>`
   display: flex;
   background-color: ${({ theme }) => theme.body};
 
   position: relative;
   height: 100vh;
+  min-height: 100vh;
+
+  /* overflow: ${({ isOpen }) => (isOpen ? 'hidden' : 'auto')}; */
 
   overflow: hidden;
 `;

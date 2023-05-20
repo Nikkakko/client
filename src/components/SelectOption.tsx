@@ -35,6 +35,9 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px 14px 16px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 
   svg {
     cursor: pointer;

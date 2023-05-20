@@ -35,7 +35,6 @@ const Sidebar = () => {
 
 const Container = styled.div`
   width: 250px;
-
   background: #1d1f22;
   display: flex;
   flex-direction: column;
