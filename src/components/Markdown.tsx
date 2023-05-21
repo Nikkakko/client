@@ -7,11 +7,20 @@ const Markdown = () => {
 
   return (
     <Container>
-      {!selectedData.content && (
-        <span>No content found. Please select a file from the left panel.</span>
+      {!selectedData?.content && (
+        <NoContent>
+          No content found. Please Write something in the editor .
+        </NoContent>
       )}
 
-      {selectedData.content && (
+      {selectedData?.content ? (
+        <ContentWrapper>
+          <TextArea
+            value={selectedData?.content}
+            onChange={e => onContentChange(selectedData.name, e.target.value)}
+          />
+        </ContentWrapper>
+      ) : (
         <ContentWrapper>
           <TextArea
             value={selectedData?.content}
@@ -26,6 +35,16 @@ const Markdown = () => {
 const Container = styled.div``;
 
 const ContentWrapper = styled.div`
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #c1c4cb;
+`;
+
+const NoContent = styled.span`
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;

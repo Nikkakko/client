@@ -5,7 +5,7 @@ import { CustomButton, ItemList, SwitchTheme } from '.';
 import { useDataStore } from '../app/store';
 
 const Sidebar = () => {
-  const { data } = useDataStore();
+  const { data, createNewData } = useDataStore();
   return (
     <Container>
       <Wrapper>
@@ -16,7 +16,7 @@ const Sidebar = () => {
 
           <CustomButton
             title='+ New Document'
-            onClick={() => console.log('New Document')}
+            onClick={() => createNewData()}
             variant='primary'
           />
 

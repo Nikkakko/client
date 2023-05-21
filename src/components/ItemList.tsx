@@ -10,14 +10,24 @@ interface ItemListProps {
 }
 
 const ItemList: FC<ItemListProps> = ({ item }) => {
-  const { setSelectedData } = useDataStore();
+  const { setSelectedData, selectedData } = useDataStore();
+
+  /* refactor style selected */
 
   return (
-    <Container onClick={() => setSelectedData(item)}>
+    <Container
+      onClick={() => setSelectedData(item)}
+      style={{
+        backgroundColor:
+          item?.name === selectedData?.name ? '#2F3336' : '#1D1F22',
+        padding: '6px',
+        borderRadius: '4px',
+        cursor: 'pointer',
+      }}
+    >
       <IconImg src={IconDocument} alt='icon' />
       <ItemWrapper>
         <LightText>{item?.createdAt}</LightText>
-
         <RegularText>{item?.name}</RegularText>
       </ItemWrapper>
     </Container>

@@ -8,7 +8,9 @@ const Preview = () => {
   return (
     <Container>
       {!selectedData.content && (
-        <span>No content found. Please select a file from the left panel.</span>
+        <NoContent>
+          No content found. Please Write something in the editor .
+        </NoContent>
       )}
 
       <ContentWrapper>
@@ -31,6 +33,18 @@ const ContentWrapper = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
+
+  text-transform: capitalize;
+`;
+
+const NoContent = styled.span`
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #c1c4cb;
 `;
 
 const MarkdownContainer = styled(ReactMarkdown)`

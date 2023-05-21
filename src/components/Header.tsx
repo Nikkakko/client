@@ -14,10 +14,17 @@ const Header = () => {
     closeSidebar,
     selectedData,
     removeData,
+    onTitleChange,
+    onSave,
   } = useDataStore();
 
   // set useref to close sidebar when clicking outside of it
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // React.useEffect(() => {
+  //   // set data to localstorage
+  //   localStorage.setItem('data', JSON.stringify(data));
+  // }, [onSave, data]);
 
   return (
     <Container ref={sidebarRef}>
@@ -27,7 +34,13 @@ const Header = () => {
       <Wrapper>
         <TitleWrapper>
           <Icon src={IconDocument} alt='icon' />
-          <Title>{selectedData?.name || 'Empty'}</Title>
+          {/* <Title>{selectedData?.name || 'Empty'}</Title> */}
+          <TitleInput
+            type='text'
+            value={selectedData?.name || ''}
+            onChange={e => onTitleChange(selectedData?.name, e.target.value)}
+            placeholder='Untitled'
+          />
         </TitleWrapper>
 
         <Icons>
@@ -37,7 +50,11 @@ const Header = () => {
             onClick={() => removeData(selectedData?.name)}
           />
           <SaveWrapper>
-            <Icon src={IconSave} alt='icon' />
+            <Icon
+              src={IconSave}
+              alt='icon'
+              onClick={() => onSave(selectedData?.name)}
+            />
           </SaveWrapper>
         </Icons>
       </Wrapper>
@@ -81,7 +98,23 @@ const TitleWrapper = styled.div`
   gap: 16.3px;
 `;
 
-const Title = styled(RobotoRegular)``;
+const TitleInput = styled.input`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  /* identical to box height */
+
+  /* 100 */
+
+  color: #ffffff;
+
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+`;
 
 const Icon = styled.img``;
 
