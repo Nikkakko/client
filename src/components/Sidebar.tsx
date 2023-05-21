@@ -1,11 +1,10 @@
-import React from 'react';
 import styled from 'styled-components';
 import { CommissionerBold, RobotoSpacing } from '../styles/typography';
 import { CustomButton, ItemList, SwitchTheme } from '.';
 import { useDataStore } from '../app/store';
 
 const Sidebar = () => {
-  const { data, createNewData } = useDataStore();
+  const { data, createNewData, selectedData } = useDataStore();
   return (
     <Container>
       <Wrapper>
@@ -22,7 +21,10 @@ const Sidebar = () => {
 
           {data.map((item, index) => (
             <List key={index}>
-              <ItemList item={item} />
+              <ItemList
+                item={item}
+                selected={item.name === selectedData?.name}
+              />
             </List>
           ))}
         </Documents>

@@ -2,29 +2,20 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useDataStore } from '../app/store';
 import IconMenu from '../svgs/IconMenu';
-import { RobotoRegular } from '../styles/typography';
 import IconClose from '../svgs/IconClose';
 import { IconDocument, IconDelete, IconSave } from '../assets';
 
-const Header = () => {
-  const {
-    data,
-    isSidebarOpen,
-    toggleSidebar,
-    closeSidebar,
-    selectedData,
-    removeData,
-    onTitleChange,
-    onSave,
-  } = useDataStore();
+type Props = {
+  onModalOpen: () => void;
+  onModalClose: () => void;
+};
+
+const Header = ({ onModalOpen, onModalClose }: Props) => {
+  const { isSidebarOpen, toggleSidebar, selectedData, onTitleChange, onSave } =
+    useDataStore();
 
   // set useref to close sidebar when clicking outside of it
   const sidebarRef = useRef<HTMLDivElement>(null);
-
-  // React.useEffect(() => {
-  //   // set data to localstorage
-  //   localStorage.setItem('data', JSON.stringify(data));
-  // }, [onSave, data]);
 
   return (
     <Container ref={sidebarRef}>
@@ -34,7 +25,6 @@ const Header = () => {
       <Wrapper>
         <TitleWrapper>
           <Icon src={IconDocument} alt='icon' />
-          {/* <Title>{selectedData?.name || 'Empty'}</Title> */}
           <TitleInput
             type='text'
             value={selectedData?.name || ''}
@@ -44,11 +34,7 @@ const Header = () => {
         </TitleWrapper>
 
         <Icons>
-          <Icon
-            src={IconDelete}
-            alt='icon'
-            onClick={() => removeData(selectedData?.name)}
-          />
+          <Icon src={IconDelete} alt='icon' onClick={onModalOpen} />
           <SaveWrapper>
             <Icon
               src={IconSave}

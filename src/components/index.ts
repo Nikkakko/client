@@ -7,3 +7,4 @@ export { default as SwitchTheme } from './SwitchTheme';
 export { default as Markdown } from './Markdown';
 export { default as Preview } from './Preview';
 export { default as SelectOption } from './SelectOption';
+export { default as DeleteModal } from './DeleteModal';

@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDataStore, useThemeStore } from './app/store';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
-import { Header, MainContent, Sidebar } from './components';
+import { DeleteModal, Header, MainContent, Sidebar } from './components';
 
 const App = () => {
   const theme = useThemeStore(state => state.theme);
   const { isSidebarOpen } = useDataStore();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <ThemeProvider theme={theme}>
       <Wrapper isOpen={isSidebarOpen}>
         {isSidebarOpen && <Sidebar />}
         <Container isOpen={isSidebarOpen}>
-          <Header />
+          <Header
+            onModalOpen={() => setIsModalOpen(true)}
+            onModalClose={() => setIsModalOpen(false)}
+          />
           <MainContent />
         </Container>
+        {isModalOpen && (
+          <DeleteModal onModalClose={() => setIsModalOpen(false)} />
+        )}
       </Wrapper>
     </ThemeProvider>
   );
