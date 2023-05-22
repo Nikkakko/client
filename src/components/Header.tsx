@@ -1,24 +1,20 @@
-import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useDataStore } from '../app/store';
 import IconMenu from '../svgs/IconMenu';
 import IconClose from '../svgs/IconClose';
 import { IconDocument, IconDelete, IconSave } from '../assets';
+import { device } from '../mediaQueries';
 
 type Props = {
   onModalOpen: () => void;
-  onModalClose: () => void;
 };
 
-const Header = ({ onModalOpen, onModalClose }: Props) => {
+const Header = ({ onModalOpen }: Props) => {
   const { isSidebarOpen, toggleSidebar, selectedData, onTitleChange, onSave } =
     useDataStore();
 
-  // set useref to close sidebar when clicking outside of it
-  const sidebarRef = useRef<HTMLDivElement>(null);
-
   return (
-    <Container ref={sidebarRef}>
+    <Container>
       <MenuWrapper onClick={toggleSidebar}>
         {isSidebarOpen ? <IconClose /> : <IconMenu />}
       </MenuWrapper>
@@ -41,6 +37,8 @@ const Header = ({ onModalOpen, onModalClose }: Props) => {
               alt='icon'
               onClick={() => onSave(selectedData?.name)}
             />
+            {/* based on width change text */}
+            <SaveText>Save Changes</SaveText>
           </SaveWrapper>
         </Icons>
       </Wrapper>
@@ -56,6 +54,25 @@ const Container = styled.div`
 
   display: flex;
   align-items: center;
+`;
+
+const SaveText = styled.p`
+  display: none;
+
+  @media ${device.tablet} {
+    display: block;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    /* identical to box height */
+
+    /* 100 */
+
+    color: #ffffff;
+  }
 `;
 
 const MenuWrapper = styled.div`
@@ -121,5 +138,11 @@ const SaveWrapper = styled.div`
   justify-content: center;
 
   cursor: pointer;
+
+  @media ${device.tablet} {
+    width: 152px;
+    height: 40px;
+    gap: 8px;
+  }
 `;
 export default Header;

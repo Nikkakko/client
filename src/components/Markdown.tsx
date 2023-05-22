@@ -1,18 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDataStore } from '../app/store';
+import { SelectOption } from '.';
+import { device } from '../mediaQueries';
 
-const Markdown = () => {
+type Props = {
+  selected: boolean;
+  setSelected: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Markdown = ({ selected, setSelected }: Props) => {
   const { selectedData, onContentChange } = useDataStore();
 
   return (
     <Container>
-      {!selectedData?.content && (
-        <NoContent>
-          No content found. Please Write something in the editor .
-        </NoContent>
-      )}
-
+      <SelectOption
+        selected={selected}
+        setSelected={setSelected}
+        title='Markdown'
+        noIcon
+      />
       {selectedData?.content ? (
         <ContentWrapper>
           <TextArea
@@ -32,7 +39,15 @@ const Markdown = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  flex: 1;
+  /* width: 100%; */
+`;
+
+const Wrapper = styled.div`
+  margin-top: 52px;
+  padding: 0 16px;
+`;
 
 const ContentWrapper = styled.div`
   font-family: 'Roboto Mono';
@@ -42,6 +57,10 @@ const ContentWrapper = styled.div`
   line-height: 24px;
 
   color: #c1c4cb;
+
+  /* padding: 48px 16px; */
+
+  /* height: 100%; */
 `;
 
 const NoContent = styled.span`
@@ -56,7 +75,7 @@ const NoContent = styled.span`
 
 const TextArea = styled.textarea`
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   min-height: 100%;
   background: #151619;
   border: none;
@@ -78,6 +97,9 @@ const TextArea = styled.textarea`
   /* 400 */
 
   color: #c1c4cb;
+
+  @media ${device.tablet} {
+  }
 `;
 
 export default Markdown;

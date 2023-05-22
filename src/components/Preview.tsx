@@ -2,17 +2,22 @@ import React from 'react';
 import { useDataStore } from '../app/store';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import styled from 'styled-components';
+import { SelectOption } from '.';
 
-const Preview = () => {
+type Props = {
+  selected: boolean;
+  setSelected: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Preview = ({ selected, setSelected }: Props) => {
   const { selectedData } = useDataStore();
   return (
     <Container>
-      {!selectedData.content && (
-        <NoContent>
-          No content found. Please Write something in the editor .
-        </NoContent>
-      )}
-
+      <SelectOption
+        selected={selected}
+        setSelected={setSelected}
+        title='Preview'
+      />
       <ContentWrapper>
         {selectedData.content && (
           <MarkdownContainer children={selectedData.content} />
@@ -25,6 +30,7 @@ const Preview = () => {
 const Container = styled.div`
   /* color: #fff; */
   min-height: 100vh;
+  flex: 1;
 `;
 
 const ContentWrapper = styled.div`
@@ -35,6 +41,8 @@ const ContentWrapper = styled.div`
   line-height: 24px;
 
   text-transform: capitalize;
+
+  /* padding: 64px 16px; */
 `;
 
 const NoContent = styled.span`
