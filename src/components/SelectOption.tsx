@@ -22,6 +22,8 @@ const SelectOption = ({
 }: SelectOptionProps) => {
   const { themeName } = useThemeStore();
 
+  const fillTheme = !selected && themeName !== 'light' ? '#fff' : '#7C8187';
+
   return (
     <Container
       style={{
@@ -34,7 +36,7 @@ const SelectOption = ({
         {!selected ? (
           <IconShowPreview
             onClick={() => setSelected(!selected)}
-            fill={!selected && themeName !== 'light' ? '#fff' : '#7C8187'}
+            fill={fillTheme}
           />
         ) : (
           <IconHidePreview
@@ -48,7 +50,7 @@ const SelectOption = ({
         {!noIcon && (
           <IconShowPreview
             onClick={() => setSelected(!selected)}
-            fill={!selected && themeName !== 'light' ? '#fff' : '#7C8187'}
+            fill={fillTheme}
           />
         )}
       </ShowIconOnTablet>

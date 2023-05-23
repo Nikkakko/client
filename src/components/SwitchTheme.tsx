@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import IconLight from '../svgs/IconLight';
 import IconDark from '../svgs/IconDark';
@@ -9,23 +9,15 @@ const SwitchTheme = () => {
   const { themeName, setTheme } = useThemeStore();
   const [checked, setChecked] = useState(false);
 
-  const handleChange = (nextChecked: boolean) => {
-    setChecked(nextChecked);
-
-    if (nextChecked) {
-      setTheme('light');
-    }
-
-    if (!nextChecked) {
-      setTheme('dark');
-    }
-  };
+  useMemo(() => {
+    setChecked(themeName === 'dark' ? false : true);
+  }, [themeName]);
 
   return (
     <Container>
       <IconDark checked={themeName === 'dark' ? true : false} />
       <Switch
-        onChange={handleChange}
+        onChange={() => setTheme(themeName === 'dark' ? 'light' : 'dark')}
         checked={checked}
         checkedIcon={false}
         uncheckedIcon={false}
