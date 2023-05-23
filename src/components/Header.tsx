@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import { useDataStore } from '../app/store';
 import IconMenu from '../svgs/IconMenu';
 import IconClose from '../svgs/IconClose';
-import { IconDocument, IconDelete, IconSave } from '../assets';
+import { IconDocument, IconSave } from '../assets';
 import { device } from '../mediaQueries';
+import IconDelete from '../svgs/IconDelete';
+import { CustomButton } from '.';
 
 type Props = {
   onModalOpen: () => void;
@@ -21,16 +23,19 @@ const Header = ({ onModalOpen }: Props) => {
       <Wrapper>
         <TitleWrapper>
           <Icon src={IconDocument} alt='icon' />
-          <TitleInput
-            type='text'
-            value={selectedData?.name || ''}
-            onChange={e => onTitleChange(selectedData?.name, e.target.value)}
-            placeholder='Untitled'
-          />
+          <TitleInputWrapper>
+            <DocumentName>Document Name</DocumentName>
+            <TitleInput
+              type='text'
+              value={selectedData?.name || ''}
+              onChange={e => onTitleChange(selectedData?.name, e.target.value)}
+              placeholder='Untitled'
+            />
+          </TitleInputWrapper>
         </TitleWrapper>
 
         <Icons>
-          <Icon src={IconDelete} alt='icon' onClick={onModalOpen} />
+          <IconDelete onClick={onModalOpen} />
           <SaveWrapper>
             <Icon
               src={IconSave}
@@ -50,7 +55,6 @@ const Container = styled.div`
   width: 100%;
   height: 56px;
   background: #2b2d31;
-  flex-grow: 0;
 
   display: flex;
   align-items: center;
@@ -84,7 +88,13 @@ const MenuWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  cursor: pointer;
+  @media ${device.tablet} {
+    cursor: pointer;
+    &:hover {
+      background: #e46643;
+      transition: 0.3s ease-in-out;
+    }
+  }
 `;
 
 const Wrapper = styled.div`
@@ -99,6 +109,34 @@ const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16.3px;
+
+  @media ${device.tablet} {
+  }
+`;
+
+const DocumentName = styled.p`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 15px;
+
+  /* 500 */
+
+  color: #7c8187;
+
+  display: none;
+
+  @media ${device.tablet} {
+    display: block;
+  }
+`;
+
+const TitleInputWrapper = styled.div`
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const TitleInput = styled.input`
@@ -117,6 +155,13 @@ const TitleInput = styled.input`
   border: none;
   outline: none;
   width: 100%;
+
+  @media ${device.tablet} {
+    cursor: pointer;
+    &:hover {
+      border-bottom: 1px solid #ffffff;
+    }
+  }
 `;
 
 const Icon = styled.img``;
@@ -137,12 +182,17 @@ const SaveWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  cursor: pointer;
-
   @media ${device.tablet} {
+    cursor: pointer;
     width: 152px;
     height: 40px;
     gap: 8px;
+  }
+
+  @media ${device.tablet} {
+    &:hover {
+      background: #f39765;
+    }
   }
 `;
 export default Header;

@@ -1,13 +1,19 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { RobotoRegular } from '../styles/typography';
+import { device } from '../mediaQueries';
 
 interface CustomButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   title: string;
   variant?: 'primary' | 'secondary';
 }
 
-const CustomButton: FC<CustomButtonProps> = ({ title, variant, ...props }) => {
+const CustomButton: FC<CustomButtonProps> = ({
+  title,
+  variant,
+
+  ...props
+}) => {
   return (
     <Button {...props} variant={variant}>
       <StyledTitle>{title}</StyledTitle>
@@ -30,6 +36,14 @@ const Button = styled.button<{
     `
       padding: 10px 44px 12px 43px;
     `}
+
+  @media ${device.tablet} {
+    cursor: pointer;
+
+    &:hover {
+      background: #f39765;
+    }
+  }
 `;
 
 const StyledTitle = styled(RobotoRegular)`

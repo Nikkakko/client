@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { device } from '../mediaQueries';
 
 type IconHidePreviewProps = {
   onClick: () => void;
@@ -22,6 +23,18 @@ const IconHidePreview = ({ onClick, fill }: IconHidePreviewProps) => {
   );
 };
 
-const Svg = styled.svg``;
+const Svg = styled.svg`
+  @media ${device.tablet} {
+    cursor: pointer;
+    path: {
+      /* fill: ${({ theme }) => theme.markDownText}; */
+    }
+    &:hover {
+      path {
+        fill: #e46643;
+      }
+    }
+  }
+`;
 
 export default IconHidePreview;

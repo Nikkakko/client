@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDataStore } from '../app/store';
 import { SelectOption } from '.';
@@ -11,6 +11,19 @@ type Props = {
 
 const Markdown = ({ selected, setSelected }: Props) => {
   const { selectedData, onContentChange } = useDataStore();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    autoResize();
+  }, [selectedData?.content]);
+
+  function autoResize() {
+    if (textareaRef.current) {
+      const { current: textarea } = textareaRef;
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+  }
 
   return (
     <Container>
@@ -20,18 +33,14 @@ const Markdown = ({ selected, setSelected }: Props) => {
         title='Markdown'
         noIcon
       />
-      {selectedData?.content ? (
+      {selectedData && (
         <ContentWrapper>
           <TextArea
-            value={selectedData?.content}
-            onChange={e => onContentChange(selectedData.name, e.target.value)}
-          />
-        </ContentWrapper>
-      ) : (
-        <ContentWrapper>
-          <TextArea
-            value={selectedData?.content}
-            onChange={e => onContentChange(selectedData.name, e.target.value)}
+            ref={textareaRef}
+            value={selectedData.content}
+            onChange={e => onContentChange(selectedData?.name, e.target.value)}
+            placeholder='Start typing...'
+            onInput={autoResize}
           />
         </ContentWrapper>
       )}
@@ -41,12 +50,6 @@ const Markdown = ({ selected, setSelected }: Props) => {
 
 const Container = styled.div`
   flex: 1;
-  /* width: 100%; */
-`;
-
-const Wrapper = styled.div`
-  margin-top: 52px;
-  padding: 0 16px;
 `;
 
 const ContentWrapper = styled.div`
@@ -58,31 +61,23 @@ const ContentWrapper = styled.div`
 
   color: #c1c4cb;
 
-  /* padding: 48px 16px; */
+  padding: 16px 16px;
 
-  /* height: 100%; */
-`;
-
-const NoContent = styled.span`
-  font-family: 'Roboto Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
-
-  color: #c1c4cb;
+  @media ${device.tablet} {
+    padding: 9px 22px 14px 22px;
+  }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  /* height: 100vh; */
+  height: 100vh;
   min-height: 100%;
-  background: #151619;
+  background: ${({ theme }) => theme.body};
   border: none;
   resize: none;
   outline: none;
+  overflow: hidden;
 
-  // hide scrollbar for chrome, safari and opera
   ::-webkit-scrollbar {
     display: none;
   }
@@ -92,11 +87,7 @@ const TextArea = styled.textarea`
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  /* or 171% */
-
-  /* 400 */
-
-  color: #c1c4cb;
+  color: ${({ theme }) => theme.markDownText};
 
   @media ${device.tablet} {
   }

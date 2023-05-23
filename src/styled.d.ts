@@ -7,5 +7,11 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     body: string;
     text: string;
+    select: string;
+    markDownText: string;
+    preview: {
+      headings: string;
+      paragraphs: string;
+    };
   }
 }

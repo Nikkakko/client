@@ -3,6 +3,7 @@ import { useDataStore } from '../app/store';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import styled from 'styled-components';
 import { SelectOption } from '.';
+import { device } from '../mediaQueries';
 
 type Props = {
   selected: boolean;
@@ -18,7 +19,7 @@ const Preview = ({ selected, setSelected }: Props) => {
         setSelected={setSelected}
         title='Preview'
       />
-      <ContentWrapper>
+      <ContentWrapper isSelected={selected}>
         {selectedData.content && (
           <MarkdownContainer children={selectedData.content} />
         )}
@@ -28,12 +29,12 @@ const Preview = ({ selected, setSelected }: Props) => {
 };
 
 const Container = styled.div`
-  /* color: #fff; */
-  min-height: 100vh;
   flex: 1;
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.div<{
+  isSelected: boolean;
+}>`
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
@@ -42,17 +43,17 @@ const ContentWrapper = styled.div`
 
   text-transform: capitalize;
 
-  /* padding: 64px 16px; */
-`;
+  padding: 16px 16px;
 
-const NoContent = styled.span`
-  font-family: 'Roboto Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
+  @media ${device.tablet} {
+    padding: ${({ isSelected }) =>
+      !isSelected ? '22px 22px 19px 22px' : '22px 48px'};
+  }
 
-  color: #c1c4cb;
+  @media ${device.laptopL} {
+    padding: ${({ isSelected }) =>
+      !isSelected ? '22px 22px 19px 22px' : '22px 384px'};
+  }
 `;
 
 const MarkdownContainer = styled(ReactMarkdown)`
@@ -65,7 +66,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
 
     /* 100 */
 
-    color: #ffffff;
+    color: ${({ theme }) => theme.preview.headings};
   }
 
   p {
@@ -78,7 +79,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
 
     /* 400 */
 
-    color: #c1c4cb;
+    color: ${({ theme }) => theme.preview.paragraphs};
     margin-top: 22px;
   }
 
@@ -92,8 +93,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
 
     /* 100 */
 
-    color: #ffffff;
-
+    color: ${({ theme }) => theme.preview.headings};
     margin-top: 20px;
   }
 
@@ -106,7 +106,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
     font-size: 14px;
     line-height: 24px;
 
-    color: #c1c4cb;
+    color: ${({ theme }) => theme.preview.paragraphs};
   }
 
   ul {
@@ -126,7 +126,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
 
     /* 100 */
 
-    color: #ffffff;
+    color: ${({ theme }) => theme.preview.headings};
     margin-top: 20px;
   }
 
@@ -134,7 +134,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
     /* Your styles for blockquotes */
     margin-top: 20px;
     padding: 24px;
-    background: #2b2d31;
+    background: ${({ theme }) => theme.select};
     border-radius: 4px;
     position: relative;
 
@@ -151,11 +151,11 @@ const MarkdownContainer = styled(ReactMarkdown)`
 
     p {
       margin: 0;
-      color: #fff;
+      color: ${({ theme }) => theme.preview.headings};
     }
 
     a {
-      color: #fff;
+      color: ${({ theme }) => theme.preview.headings};
     }
 
     font-family: 'Roboto Slab';
@@ -177,7 +177,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
 
     /* 100 */
 
-    color: #ffffff;
+    color: ${({ theme }) => theme.preview.headings};
   }
 
   h5 {
@@ -189,7 +189,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
 
     /* 100 */
 
-    color: #ffffff;
+    color: ${({ theme }) => theme.preview.headings};
     margin-top: 20px;
   }
 
@@ -209,7 +209,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
   //last child of code block
 
   pre {
-    background: #2b2d31;
+    background: ${({ theme }) => theme.select};
     border-radius: 4px;
     padding: 24px;
     font-family: 'Roboto Mono';
@@ -221,7 +221,7 @@ const MarkdownContainer = styled(ReactMarkdown)`
 
     /* 100 */
 
-    color: #ffffff;
+    color: ${({ theme }) => theme.preview.headings};
     margin-top: 20px;
   }
 `;
