@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-interface IconMenuProps {}
-
-const IconMenu: FC<IconMenuProps> = ({}) => {
+const IconMenu: FC = () => {
   return (
     <Svg width='30' height='18' xmlns='http://www.w3.org/2000/svg'>
       <g fill='#FFF' fillRule='evenodd'>

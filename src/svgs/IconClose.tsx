@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-interface IconCloseProps {}
-
-const IconClose: FC<IconCloseProps> = ({}) => {
+const IconClose: FC = () => {
   return (
     <Svg width='24' height='24' xmlns='http://www.w3.org/2000/svg'>
       <g fill='#FFF' fillRule='evenodd'>

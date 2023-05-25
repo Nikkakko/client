@@ -4,7 +4,7 @@ interface IconLightProps extends React.SVGProps<SVGSVGElement> {
   title?: string;
   checked?: boolean;
 }
-const IconLight: FC<IconLightProps> = ({ checked, ...props }) => {
+const IconLight: FC<IconLightProps> = ({ checked }) => {
   return (
     <svg width='18' height='18' xmlns='http://www.w3.org/2000/svg'>
       <path
