@@ -1,5 +1,6 @@
 export interface dataTypes {
+  id: string;
   createdAt: string;
-  name: string;
+  title: string;
   content: string;
 }

@@ -23,7 +23,7 @@ const ItemList: FC<ItemListProps> = ({ item, selected }) => {
       <IconImg src={IconDocument} alt='icon' />
       <ItemWrapper>
         <LightText>{date}</LightText>
-        <RegularText>{item?.name}</RegularText>
+        <RegularText>{item?.title}</RegularText>
       </ItemWrapper>
     </Container>
   );

@@ -10,11 +10,18 @@ type Props = {
 };
 
 const Markdown = ({ selected, setSelected }: Props) => {
-  const { selectedData, onContentChange } = useDataStore();
+  const { selectedData, contentValue, onContentChange } = useDataStore();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const contentRef = useRef(onContentChange);
 
   useEffect(() => {
     autoResize();
+  }, [selectedData?.content, contentValue]);
+
+  console.log(contentValue);
+
+  useEffect(() => {
+    contentRef.current(selectedData?.content || '');
   }, [selectedData?.content]);
 
   function autoResize() {
@@ -37,8 +44,8 @@ const Markdown = ({ selected, setSelected }: Props) => {
         <ContentWrapper>
           <TextArea
             ref={textareaRef}
-            value={selectedData.content}
-            onChange={e => onContentChange(selectedData?.name, e.target.value)}
+            value={contentValue}
+            onChange={e => onContentChange(e.target.value)}
             placeholder='Start typing...'
             onInput={autoResize}
           />

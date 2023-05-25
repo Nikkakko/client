@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDataStore, useThemeStore } from './app/store';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
@@ -6,8 +6,13 @@ import { DeleteModal, Header, MainContent, Sidebar } from './components';
 
 const App = () => {
   const theme = useThemeStore(state => state.theme);
-  const { isSidebarOpen } = useDataStore();
+  const { isSidebarOpen, fetchAllData, data } = useDataStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const fetchRef = useRef(fetchAllData);
+
+  useEffect(() => {
+    fetchRef.current();
+  }, [data.length]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -36,7 +41,7 @@ const Container = styled.div<{
 
   position: absolute;
   left: ${({ isOpen }) => (isOpen ? '250px' : '0')};
-  transition: all 0.3s ease-in-out;
+  /* transition: all 0.1s ease-in-out; */
 `;
 
 const Wrapper = styled.div<{

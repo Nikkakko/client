@@ -5,15 +5,28 @@ import IconClose from '../svgs/IconClose';
 import { IconDocument, IconSave } from '../assets';
 import { device } from '../mediaQueries';
 import IconDelete from '../svgs/IconDelete';
-import { CustomButton } from '.';
+import { useEffect, useState } from 'react';
 
 type Props = {
   onModalOpen: () => void;
 };
 
 const Header = ({ onModalOpen }: Props) => {
-  const { isSidebarOpen, toggleSidebar, selectedData, onTitleChange, onSave } =
-    useDataStore();
+  const {
+    isSidebarOpen,
+    toggleSidebar,
+    selectedData,
+    updateMarkdown,
+    contentValue,
+  } = useDataStore();
+
+  const [titleValue, setTitleValue] = useState<string>(
+    selectedData?.title || ''
+  );
+
+  useEffect(() => {
+    setTitleValue(selectedData?.title || '');
+  }, [selectedData?.title]);
 
   return (
     <Container>
@@ -27,8 +40,8 @@ const Header = ({ onModalOpen }: Props) => {
             <DocumentName>Document Name</DocumentName>
             <TitleInput
               type='text'
-              value={selectedData?.name || ''}
-              onChange={e => onTitleChange(selectedData?.name, e.target.value)}
+              value={titleValue}
+              onChange={e => setTitleValue(e.target.value)}
               placeholder='Untitled'
             />
           </TitleInputWrapper>
@@ -36,12 +49,16 @@ const Header = ({ onModalOpen }: Props) => {
 
         <Icons>
           <IconDelete onClick={onModalOpen} />
-          <SaveWrapper>
-            <Icon
-              src={IconSave}
-              alt='icon'
-              onClick={() => onSave(selectedData?.name)}
-            />
+          <SaveWrapper
+            onClick={() => {
+              updateMarkdown(
+                selectedData?.id || '',
+                titleValue || '',
+                contentValue
+              );
+            }}
+          >
+            <Icon src={IconSave} alt='icon' />
             {/* based on width change text */}
             <SaveText>Save Changes</SaveText>
           </SaveWrapper>

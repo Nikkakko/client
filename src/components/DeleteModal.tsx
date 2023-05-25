@@ -8,7 +8,7 @@ type Props = {
 };
 
 const DeleteModal = ({ onModalClose }: Props) => {
-  const { selectedData, removeData } = useDataStore();
+  const { selectedData, removeData, removeMarkdown } = useDataStore();
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (
@@ -25,14 +25,14 @@ const DeleteModal = ({ onModalClose }: Props) => {
         <Title>Delete this document?</Title>
 
         <Desc>
-          Are you sure you want to delete the `{selectedData?.name}` document
-          and its contents? This action cannot be reversed.
+          Are you sure you want to delete the `{selectedData?.title as string}`
+          document and its contents? This action cannot be reversed.
         </Desc>
 
         <CustomButton
           title='Confirm & Delete'
           onClick={() => {
-            removeData(selectedData?.name);
+            removeMarkdown(selectedData?.id as string);
             onModalClose();
           }}
           variant='primary'

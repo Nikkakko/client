@@ -4,7 +4,8 @@ import { CustomButton, ItemList, SwitchTheme } from '.';
 import { useDataStore } from '../app/store';
 
 const Sidebar = () => {
-  const { data, createNewData, selectedData } = useDataStore();
+  const { data, createNewMarkdown, selectedData } = useDataStore();
+
   return (
     <Container>
       <Wrapper>
@@ -15,18 +16,21 @@ const Sidebar = () => {
 
           <CustomButton
             title='+ New Document'
-            onClick={() => createNewData()}
+            onClick={createNewMarkdown}
             variant='primary'
           />
 
-          {data.map((item, index) => (
-            <List key={index}>
-              <ItemList
-                item={item}
-                selected={item.name === selectedData?.name}
-              />
-            </List>
-          ))}
+          {data.length > 0 ? (
+            data?.map((item, index) => (
+              <List key={index}>
+                <ItemList item={item} selected={item.id === selectedData?.id} />
+              </List>
+            ))
+          ) : (
+            <NoDocument>
+              You don't have any documents yet. Click the button above to create
+            </NoDocument>
+          )}
         </Documents>
       </Wrapper>
 
@@ -62,6 +66,10 @@ const SubTitle = styled(RobotoSpacing)`
   color: #7c8187;
   text-transform: uppercase;
   margin-bottom: 29px;
+`;
+
+const NoDocument = styled(SubTitle)`
+  margin-top: 24px;
 `;
 
 const List = styled.div`
