@@ -85,10 +85,7 @@ export const useDataStore = create<DataStore>(set => ({
         content: '',
       });
       const data = res.data;
-      set({
-        data: data,
-        selectedData: data.find((item: dataTypes) => item.id === res.data.id),
-      });
+      set({ data: data });
     } catch (error) {
       console.log(error);
     }
