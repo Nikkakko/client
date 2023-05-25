@@ -13,6 +13,10 @@ Its a simple markdown editor, where you can create, edit, delete and save your m
 - Zustand (state management)
 - Styled Components
 - React Markdown
+- Nodejs
+- Prisma
+- Sqlite
+
 
 ## Live
 
