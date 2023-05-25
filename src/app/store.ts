@@ -15,6 +15,8 @@ interface DataStore {
   selectedData: dataTypes | null;
   isSidebarOpen: boolean;
   contentValue: string;
+  isLoading: boolean;
+  setIsLoading: (value: boolean) => void;
   onContentChange: (content: string) => void;
   toggleSidebar: () => void;
   closeSidebar: () => void;
@@ -47,6 +49,8 @@ export const useDataStore = create<DataStore>(set => ({
   closeSidebar: () => set({ isSidebarOpen: false }),
   selectedData: null,
   contentValue: '',
+  isLoading: false,
+  setIsLoading: (value: boolean) => set({ isLoading: value }),
 
   onContentChange: (content: string) => set({ contentValue: content }),
   setSelectedData: (item: dataTypes) =>
@@ -54,11 +58,13 @@ export const useDataStore = create<DataStore>(set => ({
 
   fetchAllData: async () => {
     try {
+      set({ isLoading: true });
       const res = await axiosInstance.get('/markdown');
       const data = res.data;
-      set({ data: data, selectedData: data[0] });
+      set({ data: data, selectedData: data[0], isLoading: false });
     } catch (error) {
       console.log(error);
+      set({ isLoading: false });
     }
   },
 

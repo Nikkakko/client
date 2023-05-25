@@ -2,17 +2,25 @@ import { useEffect, useRef, useState } from 'react';
 import { useDataStore, useThemeStore } from './app/store';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
-import { DeleteModal, Header, MainContent, Sidebar } from './components';
+import {
+  DeleteModal,
+  Header,
+  Loader,
+  MainContent,
+  Sidebar,
+} from './components';
 
 const App = () => {
   const theme = useThemeStore(state => state.theme);
-  const { isSidebarOpen, fetchAllData, data } = useDataStore();
+  const { isSidebarOpen, fetchAllData, data, isLoading } = useDataStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const fetchRef = useRef(fetchAllData);
 
   useEffect(() => {
     fetchRef.current();
   }, [data.length]);
+
+  if (isLoading) return <Loader />;
 
   return (
     <ThemeProvider theme={theme}>

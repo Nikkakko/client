@@ -8,3 +8,4 @@ export { default as Markdown } from './Markdown';
 export { default as Preview } from './Preview';
 export { default as SelectOption } from './SelectOption';
 export { default as DeleteModal } from './DeleteModal';
+export { default as Loader } from './Loader';
