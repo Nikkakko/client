@@ -46,7 +46,6 @@ export const useDataStore = create<DataStore>(set => ({
   toggleSidebar: () => set(state => ({ isSidebarOpen: !state.isSidebarOpen })),
   closeSidebar: () => set({ isSidebarOpen: false }),
   selectedData: null,
-  //set content to selectedData's content
   contentValue: '',
 
   onContentChange: (content: string) => set({ contentValue: content }),
@@ -88,14 +87,23 @@ export const useDataStore = create<DataStore>(set => ({
 
   updateMarkdown: async (id: string, title: string, content: string) => {
     try {
-      const res = await axiosInstance.put(`/markdown/${id}`, {
+      await axiosInstance.put(`/markdown/${id}`, {
         title,
         content,
       });
-      const data = res.data;
-      set({
-        data: data,
-        selectedData: data.find((item: dataTypes) => item.id === id),
+
+      set(state => {
+        const updatedData = state.data.map((item: dataTypes) => {
+          if (item.id === id) {
+            return { ...item, title, content };
+          }
+          return item;
+        });
+
+        return {
+          data: updatedData,
+          selectedData: updatedData.find((item: dataTypes) => item.id === id),
+        };
       });
     } catch (error) {
       console.log(error);

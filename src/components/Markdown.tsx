@@ -18,8 +18,6 @@ const Markdown = ({ selected, setSelected }: Props) => {
     autoResize();
   }, [selectedData?.content, contentValue]);
 
-  console.log(contentValue);
-
   useEffect(() => {
     contentRef.current(selectedData?.content || '');
   }, [selectedData?.content]);

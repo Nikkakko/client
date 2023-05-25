@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Preview = ({ selected, setSelected }: Props) => {
-  const { selectedData, contentValue } = useDataStore();
+  const { contentValue } = useDataStore();
 
   return (
     <Container>
@@ -21,7 +21,7 @@ const Preview = ({ selected, setSelected }: Props) => {
         title='Preview'
       />
       <ContentWrapper isSelected={selected}>
-        {selectedData?.content && <MarkdownContainer children={contentValue} />}
+        {contentValue && <MarkdownContainer children={contentValue} />}
       </ContentWrapper>
     </Container>
   );
