@@ -61,7 +61,11 @@ export const useDataStore = create<DataStore>(set => ({
       set({ isLoading: true });
       const res = await axiosInstance.get('/markdown');
       const data = res.data;
-      set({ data: data, selectedData: data[0], isLoading: false });
+      set({
+        data: data,
+        selectedData: data[0],
+        isLoading: false,
+      });
     } catch (error) {
       console.log(error);
       set({ isLoading: false });
@@ -85,6 +89,8 @@ export const useDataStore = create<DataStore>(set => ({
         content: '',
       });
       const data = res.data;
+      //set selectedData to the newly created markdown
+
       set({ data: data });
     } catch (error) {
       console.log(error);
