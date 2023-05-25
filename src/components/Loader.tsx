@@ -1,5 +1,21 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useThemeStore } from '../app/store';
+import { RobotoRegular } from '../styles/typography';
+
+const Loader: React.FC = () => {
+  const { theme } = useThemeStore();
+  return (
+    <LoaderWrapper
+      style={{
+        backgroundColor: theme.body,
+      }}
+    >
+      <Spinner />
+      <RobotoRegular>Loading Data...</RobotoRegular>
+    </LoaderWrapper>
+  );
+};
 
 // Define the keyframe animation for the loader
 const spinAnimation = keyframes`
@@ -19,7 +35,7 @@ const LoaderWrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background: ${({ theme }) => theme.body};
+  gap: 16px;
 `;
 
 // Styled spinner element
@@ -31,13 +47,5 @@ const Spinner = styled.div`
   border-top-color: #333;
   animation: ${spinAnimation} 1s linear infinite;
 `;
-
-const Loader: React.FC = () => {
-  return (
-    <LoaderWrapper>
-      <Spinner />
-    </LoaderWrapper>
-  );
-};
 
 export default Loader;
