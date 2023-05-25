@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import styled from 'styled-components';
 import { Markdown, Preview } from '.';
@@ -6,10 +6,6 @@ import { device } from '../mediaQueries';
 
 const MainContent = () => {
   const [selected, setSelected] = useState<boolean>(false);
-
-  useEffect(() => {
-    //check if width is less than 768px
-  }, []);
 
   return (
     <Container>

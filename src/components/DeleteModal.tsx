@@ -8,7 +8,7 @@ type Props = {
 };
 
 const DeleteModal = ({ onModalClose }: Props) => {
-  const { selectedData, removeData, removeMarkdown } = useDataStore();
+  const { selectedData, removeMarkdown } = useDataStore();
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (
